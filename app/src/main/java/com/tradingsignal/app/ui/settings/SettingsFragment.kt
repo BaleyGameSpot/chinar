@@ -6,12 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.tradingsignal.app.R
 import com.tradingsignal.app.TradingSignalApplication
 import com.tradingsignal.app.data.model.UserConfig
 import com.tradingsignal.app.databinding.FragmentSettingsBinding
 import com.tradingsignal.app.utils.PreferenceManager
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SettingsFragment : Fragment() {
 
@@ -100,9 +104,9 @@ class SettingsFragment : Fragment() {
         // Theme selector
         binding.radioGroupTheme.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
-                R.id.radioLight -> applyTheme("LIGHT")
-                R.id.radioDark -> applyTheme("DARK")
-                R.id.radioSystem -> applyTheme("SYSTEM")
+                R.id.radio_light -> applyTheme("LIGHT")
+                R.id.radio_dark -> applyTheme("DARK")
+                R.id.radio_system -> applyTheme("SYSTEM")
             }
         }
     }
@@ -159,10 +163,10 @@ class SettingsFragment : Fragment() {
 
     private fun clearAllSignals() {
         val app = requireActivity().application as TradingSignalApplication
-        kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch {
+        lifecycleScope.launch(Dispatchers.IO) {
             app.signalRepository.deleteAllSignals()
 
-            kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+            withContext(Dispatchers.Main) {
                 Snackbar.make(binding.root, "All signals cleared", Snackbar.LENGTH_SHORT).show()
             }
         }

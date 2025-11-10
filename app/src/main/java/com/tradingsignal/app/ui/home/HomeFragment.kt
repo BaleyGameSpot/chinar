@@ -45,9 +45,10 @@ class HomeFragment : Fragment() {
     private fun setupRecyclerView() {
         signalAdapter = SignalAdapter(
             onItemClick = { signal ->
-                // Navigate to signal detail
-                val action = HomeFragmentDirections.actionHomeToSignalDetail(signal)
-                findNavController().navigate(action)
+                // Navigate to signal detail - will be implemented when navigation is set up
+                // val action = HomeFragmentDirections.actionHomeToSignalDetail(signal)
+                // findNavController().navigate(action)
+                viewModel.markAsRead(signal)
             },
             onFavoriteClick = { signal ->
                 viewModel.toggleFavorite(signal)
@@ -104,7 +105,7 @@ class HomeFragment : Fragment() {
         }
 
         // Observe scan state
-        viewModel.isScanninobserveViewModelg.observe(viewLifecycleOwner) { isScanning ->
+        viewModel.isScanning.observe(viewLifecycleOwner) { isScanning ->
             binding.btnScan.isEnabled = !isScanning
             binding.btnScan.text = if (isScanning) "Scanning..." else "Start Scan"
         }

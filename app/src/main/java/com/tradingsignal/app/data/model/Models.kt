@@ -99,8 +99,7 @@ data class UserConfig(
 ) : Parcelable
 
 // API Response wrapper
-@Parcelize
-data class ApiResponse<T : Parcelable>(
+data class ApiResponse<T>(
     @SerializedName("success")
     val success: Boolean,
 
@@ -112,7 +111,7 @@ data class ApiResponse<T : Parcelable>(
 
     @SerializedName("error")
     val error: String? = null
-) : Parcelable
+)
 
 // Statistics Model
 @Parcelize
