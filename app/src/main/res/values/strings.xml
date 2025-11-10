@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Name -->
+    <string name="app_name">Trading Signal</string>
+    <string name="app_tagline">Professional Crypto \u0026 Forex Signals</string>
+    <string name="app_logo">App Logo</string>
+    <string name="version_text">Version 1.0.0</string>
+
+    <!-- Navigation -->
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="settings">Settings</string>
+    <string name="scan">Scan</string>
+    <string name="navigate">Navigate</string>
+
+    <!-- Home Screen -->
+    <string name="trading_signals">Trading Signals</string>
+    <string name="start_scan">Start Scan</string>
+    <string name="total">Total</string>
+    <string name="crypto">Crypto</string>
+    <string name="forex">Forex</string>
+    <string name="last_scan_never">Last scan: Never</string>
+    <string name="no_signals_found">No signals found</string>
+    <string name="tap_scan_to_find">Tap \'Start Scan\' to find trading opportunities</string>
+    <string name="no_signals">No signals</string>
+
+    <!-- Filter Chips -->
+    <string name="all">All</string>
+    <string name="crypto_filter">💰 Crypto</string>
+    <string name="forex_filter">💱 Forex</string>
+    <string name="favorites">⭐ Favorites</string>
+    <string name="favorite">Favorite</string>
+
+    <!-- Signal Card -->
+    <string name="long_signal">LONG</string>
+    <string name="short_signal">SHORT</string>
+    <string name="risk_reward">Risk/Reward</string>
+    <string name="take_profit">Take Profit</string>
+    <string name="stop_loss">Stop Loss</string>
+
+    <!-- Profile Screen -->
+    <string name="trader">Trader</string>
+    <string name="scans_performed">%d scans performed</string>
+    <string name="subscription">Subscription</string>
+    <string name="active">Active</string>
+    <string name="upgrade">Upgrade</string>
+    <string name="features">Features</string>
+    <string name="free_features">• 5 scans per day\n• Basic signals\n• Limited history</string>
+    <string name="quick_actions">Quick Actions</string>
+    <string name="about">About</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_of_service">Terms of Service</string>
+    <string name="terms">Terms</string>
+
+    <!-- Settings Screen -->
+    <string name="scan_settings">Scan Settings</string>
+    <string name="scan_crypto">Scan Crypto Markets</string>
+    <string name="scan_forex">Scan Forex Markets</string>
+    <string name="auto_scan">Auto Scan</string>
+    <string name="timeframe">Timeframe</string>
+    <string name="scan_interval">Scan Interval (minutes)</string>
+    <string name="minutes">Minutes</string>
+    <string name="crypto_coins_limit">Crypto Coins to Scan</string>
+    <string name="number_of_coins">Number of coins</string>
+
+    <!-- Strategy Settings -->
+    <string name="strategy_settings">Strategy Settings</string>
+    <string name="sar_sma_strategy">SAR + SMA Strategy</string>
+    <string name="sar_sma_accuracy">60-65% accuracy</string>
+    <string name="supertrend_ma_strategy">SuperTrend MA Strategy</string>
+    <string name="supertrend_ma_accuracy">75-80% accuracy ⭐</string>
+
+    <!-- Notification Settings -->
+    <string name="notifications">Notifications</string>
+    <string name="enable_notifications">Enable Notifications</string>
+
+    <!-- Theme Settings -->
+    <string name="theme">Theme</string>
+    <string name="light_theme">Light Theme</string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="system_default">System Default</string>
+
+    <!-- Data Management -->
+    <string name="data_management">Data Management</string>
+    <string name="clear_all_signals">Clear All Signals</string>
+    <string name="export_data">Export Data</string>
+    <string name="save_settings">Save Settings</string>
+    <string name="reset_to_defaults">Reset to Defaults</string>
+
+    <!-- Scan Types -->
+    <string name="quick_scan">Quick Scan (Both Markets)</string>
+    <string name="crypto_only">Crypto Only</string>
+    <string name="forex_only">Forex Only</string>
+    <string name="custom_scan">Custom Scan</string>
+
+    <!-- Messages -->
+    <string name="scanning">Scanning...</string>
+    <string name="scan_complete">Scan complete!</string>
+    <string name="scan_failed">Scan failed</string>
+    <string name="signals_found">%d signals found</string>
+    <string name="settings_saved">Settings saved successfully!</string>
+    <string name="settings_reset">Settings reset to defaults</string>
+    <string name="confirm_clear_signals">Are you sure you want to delete all saved signals? This cannot be undone.</string>
+    <string name="confirm_reset_settings">Are you sure you want to reset all settings to default values?</string>
+    <string name="no_network">No internet connection</string>
+    <string name="error_occurred">An error occurred</string>
+
+    <!-- Subscription Tiers -->
+    <string name="free_tier">FREE</string>
+    <string name="basic_tier">BASIC</string>
+    <string name="premium_tier">PREMIUM</string>
+
+    <!-- Actions -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="delete">Delete</string>
+    <string name="clear">Clear</string>
+    <string name="reset">Reset</string>
+    <string name="save">Save</string>
+    <string name="close">Close</string>
+    <string name="retry">Retry</string>
+
+    <!-- About Dialog -->
+    <string name="about_title">About Trading Signal App</string>
+    <string name="about_message">Version: 1.0.0\n\nProfessional crypto \u0026 forex trading signal scanner with 2 advanced strategies:\n• SAR + SMA Strategy (60-65%% accuracy)\n• SuperTrend MA Strategy (75-80%% accuracy)\n\nSupports 100+ crypto pairs and major forex markets.</string>
+</resources>
