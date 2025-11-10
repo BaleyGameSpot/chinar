@@ -52,6 +52,9 @@ class HomeFragment : Fragment() {
             },
             onFavoriteClick = { signal ->
                 viewModel.toggleFavorite(signal)
+            },
+            onFollowSignalClick = { signal ->
+                viewModel.followSignal(signal)
             }
         )
 

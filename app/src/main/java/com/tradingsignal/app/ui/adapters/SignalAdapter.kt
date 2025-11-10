@@ -14,7 +14,8 @@ import com.tradingsignal.app.utils.FormatUtils
 
 class SignalAdapter(
     private val onItemClick: (Signal) -> Unit,
-    private val onFavoriteClick: (Signal) -> Unit
+    private val onFavoriteClick: (Signal) -> Unit,
+    private val onFollowSignalClick: (Signal) -> Unit
 ) : ListAdapter<Signal, SignalAdapter.SignalViewHolder>(SignalDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SignalViewHolder {
@@ -46,6 +47,13 @@ class SignalAdapter(
                 val position = bindingAdapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     onFavoriteClick(getItem(position))
+                }
+            }
+
+            binding.btnFollowSignal.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onFollowSignalClick(getItem(position))
                 }
             }
         }

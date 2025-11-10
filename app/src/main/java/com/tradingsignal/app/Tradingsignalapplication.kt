@@ -10,6 +10,7 @@ import com.tradingsignal.app.data.local.AppDatabase
 import com.tradingsignal.app.data.remote.ApiClient
 import com.tradingsignal.app.data.repository.SignalRepository
 import com.tradingsignal.app.utils.PreferenceManager
+import com.tradingsignal.app.workers.SignalMonitorManager
 
 class TradingSignalApplication : Application() {
 
@@ -29,7 +30,8 @@ class TradingSignalApplication : Application() {
         SignalRepository(
             apiClient,
             database.signalDao(),
-            database.marketDataDao()
+            database.marketDataDao(),
+            database.followedSignalDao()
         )
     }
 
@@ -42,6 +44,9 @@ class TradingSignalApplication : Application() {
 
         // Configure WorkManager
         configureWorkManager()
+
+        // Start signal monitoring
+        SignalMonitorManager.scheduleSignalMonitoring(this)
     }
 
     private fun createNotificationChannel() {
