@@ -152,6 +152,13 @@ class HomeViewModel(
         }
     }
 
+    // Mark signal as read
+    fun markAsRead(signal: Signal) {
+        viewModelScope.launch {
+            repository.markSignalAsRead(signal.id)
+        }
+    }
+
     // Clear messages
     fun clearErrorMessage() {
         _errorMessage.value = null
