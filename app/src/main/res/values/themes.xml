@@ -36,12 +36,12 @@
     </style>
 
     <!-- Splash Screen Theme -->
-    <style name="Theme.TradingSignal.Splash" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/primary</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_app_logo</item>
-        <item name="postSplashScreenTheme">@style/Theme.TradingSignal</item>
+    <style name="Theme.TradingSignal.Splash" parent="Theme.TradingSignal">
+        <item name="android:windowBackground">@color/primary</item>
         <item name="android:statusBarColor">@color/primary</item>
         <item name="android:windowLightStatusBar">false</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <!-- Shape Appearances -->
