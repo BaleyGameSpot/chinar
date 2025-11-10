@@ -10,9 +10,7 @@
         android:strokeWidth="4"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"/>
-    <circle
+    <path
         android:fillColor="#E0E0E0"
-        android:cx="60"
-        android:cy="60"
-        android:radius="40"/>
+        android:pathData="M20,60 a40,40 0 1,0 80,0 a40,40 0 1,0 -80,0"/>
 </vector>
