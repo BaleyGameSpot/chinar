@@ -1,6 +1,7 @@
 package com.tradingsignal.app.data.repository
 
 import androidx.lifecycle.LiveData
+import com.tradingsignal.app.data.local.FollowedSignalDao
 import com.tradingsignal.app.data.local.MarketDataDao
 import com.tradingsignal.app.data.local.SignalDao
 import com.tradingsignal.app.data.model.*
@@ -11,7 +12,8 @@ import kotlinx.coroutines.withContext
 class SignalRepository(
     private val apiService: ApiService,
     private val signalDao: SignalDao,
-    private val marketDataDao: MarketDataDao
+    private val marketDataDao: MarketDataDao,
+    private val followedSignalDao: FollowedSignalDao
 ) {
 
     // ========== SIGNAL OPERATIONS ==========
@@ -55,6 +57,71 @@ class SignalRepository(
     // Delete all signals
     suspend fun deleteAllSignals() = withContext(Dispatchers.IO) {
         signalDao.deleteAllSignals()
+    }
+
+    // ========== FOLLOWED SIGNALS OPERATIONS ==========
+
+    // Follow a signal
+    suspend fun followSignal(signal: Signal): Result<FollowedSignal> = withContext(Dispatchers.IO) {
+        try {
+            // Check if already following this signal
+            val existing = followedSignalDao.getActiveFollowedSignalBySignalId(signal.id)
+            if (existing != null) {
+                return@withContext Result.failure(Exception("Already following this signal"))
+            }
+
+            // Create followed signal entity
+            val followedSignal = FollowedSignal(
+                signalId = signal.id,
+                symbol = signal.symbol,
+                marketType = signal.marketType,
+                strategy = signal.strategy,
+                signalType = signal.signalType,
+                entryPrice = signal.price,
+                takeProfit1 = signal.takeProfit1,
+                takeProfit2 = signal.takeProfit2,
+                stopLoss = signal.stopLoss,
+                timeframe = signal.timeframe
+            )
+
+            // Insert and return
+            val id = followedSignalDao.insert(followedSignal)
+            val inserted = followedSignalDao.getFollowedSignalById(id)
+            if (inserted != null) {
+                Result.success(inserted)
+            } else {
+                Result.failure(Exception("Failed to retrieve followed signal"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    // Stop following a signal
+    suspend fun stopFollowingSignal(followedSignal: FollowedSignal, reason: String) = withContext(Dispatchers.IO) {
+        followedSignalDao.stopFollowing(
+            id = followedSignal.id,
+            exitedAt = System.currentTimeMillis(),
+            exitReason = reason,
+            exitPrice = null
+        )
+    }
+
+    // Get all active followed signals
+    fun getActiveFollowedSignals(): LiveData<List<FollowedSignal>> =
+        followedSignalDao.getActiveFollowedSignals()
+
+    // Get followed signals with opposite signal detected
+    fun getFollowedSignalsWithOppositeSignal(): LiveData<List<FollowedSignal>> =
+        followedSignalDao.getFollowedSignalsWithOppositeSignal()
+
+    // Mark opposite signal detected
+    suspend fun markOppositeSignalDetected(followedSignal: FollowedSignal, price: Double) = withContext(Dispatchers.IO) {
+        followedSignalDao.markOppositeSignalDetected(
+            id = followedSignal.id,
+            price = price,
+            time = System.currentTimeMillis()
+        )
     }
 
     // ========== SCAN OPERATIONS ==========

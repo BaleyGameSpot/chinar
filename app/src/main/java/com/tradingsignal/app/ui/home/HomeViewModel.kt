@@ -159,6 +159,18 @@ class HomeViewModel(
         }
     }
 
+    // Follow a signal
+    fun followSignal(signal: Signal) {
+        viewModelScope.launch {
+            val result = repository.followSignal(signal)
+            result.onSuccess {
+                _successMessage.value = "Now following ${signal.symbol} ${signal.signalType} signal"
+            }.onFailure { exception ->
+                _errorMessage.value = "Failed to follow signal: ${exception.message}"
+            }
+        }
+    }
+
     // Clear messages
     fun clearErrorMessage() {
         _errorMessage.value = null

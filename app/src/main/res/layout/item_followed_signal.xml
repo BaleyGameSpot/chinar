@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="6dp"
+    app:cardElevation="6dp"
+    app:cardCornerRadius="16dp"
+    app:strokeWidth="2dp"
+    app:strokeColor="@color/accent"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:background="@color/signal_neutral_light">
+
+        <!-- Active Indicator -->
+        <View
+            android:id="@+id/view_active_indicator"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:background="@drawable/bg_circle"
+            android:backgroundTint="@color/signal_long"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <!-- Following Badge -->
+        <TextView
+            android:id="@+id/text_following_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🔔 FOLLOWING"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:textColor="@color/accent"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:background="@drawable/bg_signal_badge_long"
+            android:backgroundTint="#FFECB3"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Symbol -->
+        <TextView
+            android:id="@+id/text_symbol"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="💰 BTCUSDT"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface"
+            android:layout_marginTop="10dp"
+            tools:text="💰 BTCUSDT"
+            app:layout_constraintTop_toBottomOf="@id/view_active_indicator"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Signal Type Badge -->
+        <TextView
+            android:id="@+id/text_signal_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LONG"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:paddingStart="18dp"
+            android:paddingEnd="18dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:background="@drawable/bg_signal_badge_long"
+            android:layout_marginTop="12dp"
+            tools:text="LONG"
+            app:layout_constraintTop_toBottomOf="@id/text_symbol"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <!-- Strategy -->
+        <TextView
+            android:id="@+id/text_strategy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SuperTrend MA"
+            android:textSize="12sp"
+            android:alpha="0.7"
+            android:layout_marginStart="10dp"
+            tools:text="SuperTrend MA"
+            app:layout_constraintTop_toTopOf="@id/text_signal_type"
+            app:layout_constraintBottom_toBottomOf="@id/text_signal_type"
+            app:layout_constraintStart_toEndOf="@id/text_signal_type"/>
+
+        <!-- Timer Section -->
+        <LinearLayout
+            android:id="@+id/timer_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@drawable/bg_signal_badge_long"
+            android:backgroundTint="@color/primary_light"
+            android:padding="12dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/text_signal_type"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⏱️"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/text_timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5m 30s"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary"
+                android:layout_marginStart="8dp"
+                tools:text="5m 30s"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="elapsed"
+                android:textSize="12sp"
+                android:alpha="0.6"
+                android:layout_marginStart="8dp"/>
+        </LinearLayout>
+
+        <!-- Status Section -->
+        <TextView
+            android:id="@+id/text_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="✓ Following - Watching for signals..."
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/signal_long"
+            android:gravity="center"
+            android:layout_marginTop="12dp"
+            tools:text="✓ Following - Watching for signals..."
+            app:layout_constraintTop_toBottomOf="@id/timer_container"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Warning Section (Visible when opposite signal detected) -->
+        <LinearLayout
+            android:id="@+id/warning_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_signal_badge_short"
+            android:backgroundTint="#FFEBEE"
+            android:padding="12dp"
+            android:layout_marginTop="12dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@id/text_status"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/text_warning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="⚠️ OPPOSITE SIGNAL DETECTED"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/signal_short"
+                android:gravity="center"
+                tools:text="⚠️ OPPOSITE SIGNAL DETECTED"/>
+
+            <TextView
+                android:id="@+id/text_action"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SELL NOW"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/signal_short"
+                android:gravity="center"
+                android:layout_marginTop="4dp"
+                tools:text="SELL NOW"/>
+        </LinearLayout>
+
+        <!-- Divider -->
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="?attr/colorOutlineVariant"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            app:layout_constraintTop_toBottomOf="@id/warning_container"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Entry Price -->
+        <TextView
+            android:id="@+id/label_entry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Entry:"
+            android:textSize="13sp"
+            android:alpha="0.6"
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/text_entry_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$45,234.56"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginStart="8dp"
+            tools:text="$45,234.56"
+            app:layout_constraintTop_toTopOf="@id/label_entry"
+            app:layout_constraintBottom_toBottomOf="@id/label_entry"
+            app:layout_constraintStart_toEndOf="@id/label_entry"/>
+
+        <!-- TP -->
+        <TextView
+            android:id="@+id/text_take_profit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TP: $46,500"
+            android:textSize="13sp"
+            android:textColor="@color/signal_long"
+            android:drawableStart="@drawable/ic_arrow_up"
+            android:drawablePadding="4dp"
+            android:drawableTint="@color/signal_long"
+            android:layout_marginTop="8dp"
+            tools:text="TP: $46,500"
+            app:layout_constraintTop_toBottomOf="@id/label_entry"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <!-- SL -->
+        <TextView
+            android:id="@+id/text_stop_loss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SL: $44,200"
+            android:textSize="13sp"
+            android:textColor="@color/signal_short"
+            android:drawableStart="@drawable/ic_arrow_down"
+            android:drawablePadding="4dp"
+            android:drawableTint="@color/signal_short"
+            android:layout_marginStart="16dp"
+            tools:text="SL: $44,200"
+            app:layout_constraintTop_toTopOf="@id/text_take_profit"
+            app:layout_constraintBottom_toBottomOf="@id/text_take_profit"
+            app:layout_constraintStart_toEndOf="@id/text_take_profit"/>
+
+        <!-- Stop Following Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_stop_following"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:text="Stop Following"
+            android:textSize="14sp"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            app:icon="@drawable/ic_delete"
+            app:iconSize="18dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@id/text_take_profit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
