@@ -11,8 +11,13 @@ import uvicorn
 import socket
 
 from api.routes import router
+from auth.routes import router as auth_router
+from admin.routes import router as admin_router
 from database.db import init_db, close_db
+from auth.db import init_users_table
+from database.followed_signals_db import init_followed_signals_table
 from services.scanner_service import ScannerService
+from fastapi.staticfiles import StaticFiles
 
 # Initialize scanner service
 scanner_service = ScannerService()
@@ -50,6 +55,8 @@ async def lifespan(app: FastAPI):
     
     print("\n🔧 Initializing database...")
     await init_db()
+    await init_users_table()
+    await init_followed_signals_table()
     print("✅ Database initialized successfully")
     
     print("\n🎯 Starting scanner service...")
@@ -85,6 +92,14 @@ app.add_middleware(
 
 # Include API routes
 app.include_router(router, prefix="/api", tags=["Trading Signals"])
+app.include_router(auth_router, prefix="/api/auth", tags=["Authentication"])
+app.include_router(admin_router, prefix="/admin", tags=["Admin Panel"])
+
+# Mount static files for admin panel
+try:
+    app.mount("/admin/static", StaticFiles(directory="admin/static"), name="static")
+except Exception:
+    pass  # Static directory might not exist yet
 
 @app.get("/")
 async def root():
@@ -103,9 +118,13 @@ async def root():
             "docs": "/docs",
             "redoc": "/redoc",
             "api": "/api",
+            "auth": "/api/auth",
+            "admin": "/admin",
             "health": "/api/health",
             "signals": "/api/signals",
-            "scan": "/api/scan"
+            "scan": "/api/scan",
+            "register": "/api/auth/register",
+            "login": "/api/auth/login"
         },
         "strategies": [
             {

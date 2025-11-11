@@ -69,4 +69,58 @@ interface ApiService {
     // Health check
     @GET("health")
     suspend fun healthCheck(): Response<ApiResponse<String>>
+
+    // Authentication endpoints
+    @POST("auth/register")
+    suspend fun register(
+        @Body request: RegisterRequest
+    ): Response<AuthResponse>
+
+    @POST("auth/login/json")
+    suspend fun login(
+        @Body request: LoginRequest
+    ): Response<AuthResponse>
+
+    @GET("auth/me")
+    suspend fun getCurrentUser(
+        @Header("Authorization") authorization: String
+    ): Response<User>
+
+    @POST("auth/change-password")
+    suspend fun changePassword(
+        @Header("Authorization") authorization: String,
+        @Body request: ChangePasswordRequest
+    ): Response<ApiResponse<String>>
+
+    // Followed signals endpoints
+    @POST("signals/follow")
+    suspend fun followSignal(
+        @Header("Authorization") authorization: String,
+        @Body request: FollowSignalRequest
+    ): Response<ApiResponse<FollowedSignal>>
+
+    @GET("signals/followed")
+    suspend fun getFollowedSignals(
+        @Header("Authorization") authorization: String,
+        @Query("active_only") activeOnly: Boolean = false
+    ): Response<ApiResponse<List<FollowedSignal>>>
+
+    @GET("signals/followed/{id}")
+    suspend fun getFollowedSignalById(
+        @Header("Authorization") authorization: String,
+        @Path("id") followedId: Int
+    ): Response<ApiResponse<FollowedSignal>>
+
+    @DELETE("signals/followed/{id}")
+    suspend fun unfollowSignal(
+        @Header("Authorization") authorization: String,
+        @Path("id") followedId: Int,
+        @Query("exit_reason") exitReason: String = "MANUAL",
+        @Query("exit_price") exitPrice: Double? = null
+    ): Response<ApiResponse<String>>
+
+    @GET("signals/followed/check-opposite")
+    suspend fun checkOppositeSignals(
+        @Header("Authorization") authorization: String
+    ): Response<ApiResponse<List<OppositeSignalDetection>>>
 }

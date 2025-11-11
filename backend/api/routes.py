@@ -248,6 +248,136 @@ async def get_statistics_endpoint():
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+# ==================== FOLLOWED SIGNALS ENDPOINTS ====================
+
+from database.followed_signals_db import (
+    FollowedSignalCreate, FollowedSignal,
+    create_followed_signal, get_user_followed_signals,
+    get_followed_signal_by_id, stop_following_signal,
+    check_for_opposite_signals
+)
+from auth.utils import get_current_user_from_token
+
+
+@router.post("/signals/follow", response_model=ApiResponse)
+async def follow_signal(
+    followed: FollowedSignalCreate,
+    current_user: dict = Depends(get_current_user_from_token)
+):
+    """
+    Follow a trading signal
+    """
+    try:
+        # Ensure user_id matches the authenticated user
+        followed.user_id = current_user["user_id"]
+
+        # Create followed signal
+        result = await create_followed_signal(followed)
+
+        return ApiResponse(
+            success=True,
+            data=result.dict(),
+            message="Signal followed successfully"
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/signals/followed", response_model=ApiResponse)
+async def get_followed_signals(
+    active_only: bool = False,
+    current_user: dict = Depends(get_current_user_from_token)
+):
+    """
+    Get user's followed signals
+    """
+    try:
+        signals = await get_user_followed_signals(current_user["user_id"], active_only)
+
+        return ApiResponse(
+            success=True,
+            data=[s.dict() for s in signals],
+            message=f"Retrieved {len(signals)} followed signals"
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/signals/followed/{followed_id}", response_model=ApiResponse)
+async def get_followed_signal(
+    followed_id: int,
+    current_user: dict = Depends(get_current_user_from_token)
+):
+    """
+    Get a specific followed signal
+    """
+    try:
+        signal = await get_followed_signal_by_id(followed_id, current_user["user_id"])
+
+        if not signal:
+            raise HTTPException(status_code=404, detail="Followed signal not found")
+
+        return ApiResponse(
+            success=True,
+            data=signal.dict(),
+            message="Followed signal retrieved successfully"
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.delete("/signals/followed/{followed_id}", response_model=ApiResponse)
+async def unfollow_signal(
+    followed_id: int,
+    exit_reason: str = "MANUAL",
+    exit_price: Optional[float] = None,
+    current_user: dict = Depends(get_current_user_from_token)
+):
+    """
+    Stop following a signal
+    """
+    try:
+        success = await stop_following_signal(
+            followed_id,
+            current_user["user_id"],
+            exit_reason,
+            exit_price
+        )
+
+        if not success:
+            raise HTTPException(status_code=400, detail="Failed to unfollow signal")
+
+        return ApiResponse(
+            success=True,
+            message="Signal unfollowed successfully"
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/signals/followed/check-opposite", response_model=ApiResponse)
+async def check_opposite_signals(
+    current_user: dict = Depends(get_current_user_from_token)
+):
+    """
+    Check for opposite signals on user's followed positions
+    """
+    try:
+        opposite_signals = await check_for_opposite_signals(current_user["user_id"])
+
+        return ApiResponse(
+            success=True,
+            data=opposite_signals,
+            message=f"Found {len(opposite_signals)} opposite signals"
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 # ==================== HEALTH CHECK ====================
 
 @router.get("/health")
