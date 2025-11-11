@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Strategy Configuration{% endblock %}
+
+{% block content %}
+<div class="header">
+    <h1>⚙️ Strategy Configuration</h1>
+</div>
+
+<div class="card">
+    <h2>SAR + SMA Strategy</h2>
+    <p><strong>Accuracy:</strong> 60-65%</p>
+    <p><strong>Description:</strong> Parabolic SAR combined with SMA (20/40) crossover</p>
+    <ul>
+        <li>LONG: SAR below price + SMA20 crosses above SMA40 + Price above both SMAs</li>
+        <li>SHORT: SAR above price + SMA20 crosses below SMA40 + Price below both SMAs</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h2>SuperTrend MA Strategy</h2>
+    <p><strong>Accuracy:</strong> 75-80%</p>
+    <p><strong>Description:</strong> SuperTrended Moving Average with trend reversal detection</p>
+    <ul>
+        <li>LONG: Trend changes from BEARISH → BULLISH (red to green)</li>
+        <li>SHORT: Trend changes from BULLISH → BEARISH (green to red)</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h2>Supported Markets</h2>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+            <h3>🪙 Crypto (USDT Pairs)</h3>
+            <p>Bitcoin, Ethereum, and other top cryptocurrencies by volume from Binance API</p>
+        </div>
+        <div>
+            <h3>💱 Forex</h3>
+            <p>Major pairs (EUR/USD, GBP/USD, USD/JPY), commodities (Gold), and cross pairs via TradingView/yfinance API</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Primary Colors -->
-    <color name="primary">#1976D2</color>
-    <color name="primary_dark">#0D47A1</color>
-    <color name="primary_light">#BBDEFB</color>
-    <color name="accent">#FF9800</color>
+    <!-- Primary Colors - Gold Theme -->
+    <color name="primary">#D4AF37</color>  <!-- Gold -->
+    <color name="primary_dark">#B8941F</color>  <!-- Dark Gold -->
+    <color name="primary_light">#FFF8DC</color>  <!-- Light Gold/Cornsilk -->
+    <color name="accent">#4CAF50</color>  <!-- Green -->
+    <color name="accent_dark">#388E3C</color>  <!-- Dark Green -->
+    <color name="accent_light">#81C784</color>  <!-- Light Green -->
 
     <!-- Signal Colors -->
     <color name="signal_long">#4CAF50</color>
@@ -14,12 +16,12 @@
     <color name="signal_neutral_light">#F5F5F5</color>
 
     <!-- Market Type Colors -->
-    <color name="crypto_color">#FF9800</color>
-    <color name="forex_color">#2196F3</color>
+    <color name="crypto_color">#D4AF37</color>  <!-- Gold for Crypto -->
+    <color name="forex_color">#4CAF50</color>  <!-- Green for Forex -->
 
     <!-- Strategy Colors -->
-    <color name="strategy_sar_sma">#2196F3</color>
-    <color name="strategy_supertrend">#FF9800</color>
+    <color name="strategy_sar_sma">#4CAF50</color>  <!-- Green -->
+    <color name="strategy_supertrend">#D4AF37</color>  <!-- Gold -->
 
     <!-- Background Colors -->
     <color name="background">#FFFFFF</color>
