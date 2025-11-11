@@ -48,11 +48,62 @@ android {
         viewBinding = true
         buildConfig = true
     }
+
+    sourceSets {
+        getByName("main") {
+            java.srcDirs("src/main/java")
+            java.exclude("**/*.kts")
+            kotlin.srcDirs("src/main/java")
+            kotlin.exclude("**/*.kts")
+        }
+        getByName("test") {
+            java.srcDirs("src/test/java")
+            java.exclude("**/*.kts")
+            kotlin.srcDirs("src/test/java")
+            kotlin.exclude("**/*.kts")
+        }
+        getByName("androidTest") {
+            java.srcDirs("src/androidTest/java")
+            java.exclude("**/*.kts")
+            kotlin.srcDirs("src/androidTest/java")
+            kotlin.exclude("**/*.kts")
+        }
+    }
 }
 
 kapt {
     correctErrorTypes = true
-    useBuildCache = true
+    useBuildCache = false  // Disable cache to avoid corrupted cache issues
+    includeCompileClasspath = false
+    mapDiagnosticLocations = true
+
+    javacOptions {
+        option("-Xmaxerrs", 500)
+    }
+
+    arguments {
+        arg("room.schemaLocation", "$projectDir/schemas")
+        arg("room.incremental", "true")
+        arg("room.expandProjection", "true")
+    }
+}
+
+// Explicitly configure KAPT tasks to filter out script files
+tasks.withType<org.jetbrains.kotlin.gradle.internal.KaptGenerateStubsTask>().configureEach {
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+    // Exclude script files from KAPT processing
+    source = source.filter { !it.name.endsWith(".kts") }
+}
+
+// Also configure regular Kotlin compilation tasks
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+    // Exclude script files
+    source = source.filter { !it.name.endsWith(".kts") }
 }
 
 dependencies {
