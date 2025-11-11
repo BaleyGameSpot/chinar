@@ -50,6 +50,11 @@ android {
     }
 }
 
+kapt {
+    correctErrorTypes = true
+    useBuildCache = true
+}
+
 dependencies {
     // Core Android
     implementation("androidx.core:core-ktx:1.12.0")
