@@ -51,34 +51,22 @@ android {
 
     sourceSets {
         getByName("main") {
-            java {
-                srcDirs("src/main/java")
-                exclude("**/*.kts")
-            }
-            kotlin {
-                srcDirs("src/main/java")
-                exclude("**/*.kts")
-            }
+            java.srcDirs("src/main/java")
+            java.exclude("**/*.kts")
+            kotlin.srcDirs("src/main/java")
+            kotlin.exclude("**/*.kts")
         }
         getByName("test") {
-            java {
-                srcDirs("src/test/java")
-                exclude("**/*.kts")
-            }
-            kotlin {
-                srcDirs("src/test/java")
-                exclude("**/*.kts")
-            }
+            java.srcDirs("src/test/java")
+            java.exclude("**/*.kts")
+            kotlin.srcDirs("src/test/java")
+            kotlin.exclude("**/*.kts")
         }
         getByName("androidTest") {
-            java {
-                srcDirs("src/androidTest/java")
-                exclude("**/*.kts")
-            }
-            kotlin {
-                srcDirs("src/androidTest/java")
-                exclude("**/*.kts")
-            }
+            java.srcDirs("src/androidTest/java")
+            java.exclude("**/*.kts")
+            kotlin.srcDirs("src/androidTest/java")
+            kotlin.exclude("**/*.kts")
         }
     }
 }
@@ -107,9 +95,6 @@ tasks.withType<org.jetbrains.kotlin.gradle.internal.KaptGenerateStubsTask>().con
     }
     // Exclude script files from KAPT processing
     exclude("**/*.kts")
-    doFirst {
-        source.filter { !it.name.endsWith(".kts") }
-    }
 }
 
 // Also configure regular Kotlin compilation tasks
